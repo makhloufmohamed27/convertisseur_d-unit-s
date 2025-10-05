@@ -1,2 +1,14 @@
-# convertisseur_d-unit-s
-ce programme python convertit plusieurs grandeurs d'unite en unite
+# convertisseur_d-unités
+ce programme python convertit plusieurs mesures d'unité en unité
+
+# Fonctions
+Convertissements de mesures de 
+- longueur
+- Masse
+- Température
+- Volume
+- Vitesse
+-Surface 
+
+# Languages utilisés
+Python
