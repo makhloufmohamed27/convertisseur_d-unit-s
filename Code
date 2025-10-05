@@ -1,0 +1,132 @@
+conversions = {
+
+    "mètres": 1,
+    "pieds": 0.3048,
+    "pouces": 0.0254,
+    "miles": 1609.34,
+    "kilomètres": 1000,
+    "centimètres": 0.01,
+    "millimètres": 0.001,
+    "yards": 0.9144,
+    
+    "kg": 1,
+    "livres": 0.453592,
+    "onces": 0.0283495,
+    "grammes": 0.001,
+    "tonnes": 1000,
+    "milligrammes": 0.000001,
+    
+    "celsius": "celsius",
+    "fahrenheit": "fahrenheit", 
+    "kelvin": "kelvin",
+    
+    "litres": 1,
+    "gallons": 3.78541,
+    "pintes": 0.473176,
+    "onces_volume": 0.0295735,
+    "millilitres": 0.001,
+    "centilitres": 0.01,
+    
+    "m/s": 1,
+    "km/h": 0.277778,
+    "mph": 0.44704,
+    "noeuds": 0.514444,
+    
+    "m²": 1,
+    "pieds²": 0.092903,
+    "pouces²": 0.00064516,
+    "hectares": 10000,
+    "acres": 4046.86
+}
+
+print("=== CONVERTISSEUR D'UNITES ===")
+print("Choisis ce que tu veux convertir :")
+print("1. Longueur")
+print("2. Masse") 
+print("3. Température")
+print("4. Volume")
+print("5. Vitesse")
+print("6. Surface")
+choix_categorie = input("\nÉcris le NUMÉRO de la catégorie : ")
+categories = {
+    "1": {
+        "nom": "Longueur",
+        "unités": ["mètres", "pieds", "pouces", "miles", "kilomètres", "centimètres", "millimètres", "yards"]
+    },
+    "2": {
+        "nom": "Masse", 
+        "unités": ["kg", "livres", "onces", "grammes", "tonnes", "milligrammes"]
+    },
+    "3": {
+        "nom": "Température",
+        "unités": ["celsius", "fahrenheit", "kelvin"]
+    },
+    "4": {
+        "nom": "Volume",
+        "unités": ["litres", "gallons", "pintes", "onces_volume", "millilitres", "centilitres"]
+    },
+    "5": {
+        "nom": "Vitesse", 
+        "unités": ["m/s", "km/h", "mph", "noeuds"]
+    },
+    "6": {
+        "nom": "Surface",
+        "unités": ["m²", "pieds²", "pouces²", "hectares", "acres"]
+    }
+}
+if choix_categorie in categories:
+    catégorie = categories[choix_categorie]
+    unités = catégorie["unités"]
+    print(f"\n=== CONVERSION {catégorie['nom'].upper()} ===")
+    print("Unités disponibles :")
+    for i, unité in enumerate(unités, 1):
+        print(f"{i}. {unité}")
+    départ = input("\nÉcris le NUMÉRO de l'unité de DÉPART : ")
+    arrivée = input("Écris le NUMÉRO de l'unité d'ARRIVÉE : ")
+    try:
+        départ_num = int(départ) - 1
+        arrivée_num = int(arrivée) - 1
+        if 0 <= départ_num < len(unités) and 0 <= arrivée_num < len(unités):
+            unité_départ = unités[départ_num]
+            unité_arrivée = unités[arrivée_num]
+            valeur_str = input(f"\nDonne la valeur en {unité_départ} : ")
+            valeur = float(valeur_str)
+            if catégorie["nom"] == "Température":
+                if unité_départ == "celsius":
+                    if unité_arrivée == "fahrenheit":
+                        résultat = (valeur * 9/5) + 32
+                    elif unité_arrivée == "kelvin":
+                        résultat = valeur + 273.15
+                    else:
+                        résultat = valeur
+                elif unité_départ == "fahrenheit":
+                    if unité_arrivée == "celsius":
+                        résultat = (valeur - 32) * 5/9
+                    elif unité_arrivée == "kelvin":
+                        résultat = (valeur - 32) * 5/9 + 273.15
+                    else:
+                        résultat = valeur
+                elif unité_départ == "kelvin":
+                    if unité_arrivée == "celsius":
+                        résultat = valeur - 273.15
+                    elif unité_arrivée == "fahrenheit":
+                        résultat = (valeur - 273.15) * 9/5 + 32
+                    else:
+                        résultat = valeur
+            else:
+                valeur_base = valeur * conversions[unité_départ]
+                résultat = valeur_base / conversions[unité_arrivée]
+            print(f"\n⭐ RÉSULTAT : {valeur} {unité_départ} = {résultat:.6f} {unité_arrivée}")
+            
+        else:
+            print("❌ Numéro pas bon !")
+            
+    except ValueError:
+        print("❌ Erreur ! Mets un nombre valide.")
+    except ZeroDivisionError:
+        print("❌ Erreur de calcul !")
+
+else:
+    print("❌ Catégorie pas bonne !")
+
+print("\nFin du programme !")
